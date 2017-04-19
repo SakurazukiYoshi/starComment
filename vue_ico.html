@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul li i{
+            color: orange!important;;
+            font-size:36px!important;;
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+        }
+
+        ul{
+
+            margin-left: auto;
+            cursor: default;
+        }
+        ul li{
+            width: 18px;
+            float: left;
+            overflow: hidden;
+            list-style: none;
+        }
+        ul li .star-right{
+            margin-left: -18px
+        }
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="css/star/iconfont.css">
+</head>
+<body>
+
+<ul id="fiveStar">
+
+   <li v-for="(item,index) in star">
+       <i :class="['iconfont',{'icon-star1' : item.flag,'icon-star':!item.flag, 'star-right' : item.right}]" v-on:click="fn(index)"></i>
+   </li>
+
+    <!--<li v-for="(item,index) in star"> <i v-bind:class="{iconfont:true,icon-star1:item.flag,star-right:item.right}"></i></li>-->
+    <input type="text" style="width: 20px;margin-left: 10px" :value="value">
+</ul>
+<script src="js/vue.min.js"></script>
+
+<script>
+    (function (Vue){
+        var arr=[];
+        for(var i=0; i<10; i++){
+            (i%2==0)&& (arr.push({flag:true,right:false}));   //奇数项没有class star-right
+            (i%2==1)&& (arr.push({flag:true,right:true}));    //偶数项有class star-right
+        }
+        var app=new Vue({
+            el:"#fiveStar",
+            data:{
+                star:arr,
+                value:0
+            },
+            methods:{
+                fn:function(index){
+                    for(var i=0; i<arr.length; i++){
+                        (i<=index)&& (this.star[i].flag=false);    //点击的元素前面和自己  class中的icon-star变成icon-star1
+                        (i> index)&& (this.star[i].flag=true);     //后面的元素 class中的icon-star1变成icon-star
+                        this.value=index+1;
+                    }
+                }
+            }
+        })
+    })(Vue);
+</script>
+</body>
+</html>
