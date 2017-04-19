@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        @font-face {
+            font-family: 'iconfont';
+            src: url('css/star/iconfont.eot');
+            src: url('css/star/iconfont.eot?#iefix') format('embedded-opentype'),
+            url('css/star/iconfont.woff') format('woff'),
+            url('css/star/iconfont.ttf') format('truetype'),
+            url('css/star/iconfont.svg#iconfont') format('svg');
+        }
+        .iconfont{
+            font-family:"iconfont" !important;
+            font-size:36px;font-style:normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+        }
+
+        ul{
+
+            margin-left: auto;
+        }
+        ul li{
+            width: 18px;
+            float: left;
+            overflow: hidden;
+            list-style: none;
+        }
+        ul li .star-right{
+            margin-left: -18px
+        }
+    </style>
+</head>
+<body>
+
+    <ul id="fiveStar">
+        <li> <i class="iconfont ">&#xe623;</i></li>
+        <li> <i class="iconfont star-right">&#xe623;</i></li>
+        <li> <i class="iconfont ">&#xe623;</i></li>
+        <li> <i class="iconfont star-right">&#xe623;</i></li>
+        <li> <i class="iconfont ">&#xe623;</i></li>
+        <li> <i class="iconfont star-right">&#xe623;</i></li>
+        <li> <i class="iconfont ">&#xe623;</i></li>
+        <li> <i class="iconfont star-right">&#xe623;</i></li>
+        <li> <i class="iconfont ">&#xe623;</i></li>
+        <li> <i class="iconfont star-right">&#xe623;</i></li>
+        <input type="text" style="width: 20px;margin-left: 10px">
+    </ul>
+    <script src="jquery.min.js"></script>
+    <script>
+        $.fn.extend({
+            starComment:function() {    //&#xe639;
+                var count=0;//记录点击次数
+                var that=this;
+                $(this).on("click","li",function(){
+                    if( 0==count){  //点击了一次
+                        count=1;
+                        $(this).find("i").html("&#xf0018;");
+                        $(this).prevAll().find("i").html("&#xf0018;"); //修改自己前面所有兄弟元素的图片
+                        $(this).nextAll().find("i").html("&#xe623;");  //修改自己后面所有兄弟元素的图片
+                        $(that).find("input").val($(this).index()+1);
+                    }else {   //点击了两次
+                        count=0;
+                        $(that).find("i").html("&#xe623;");
+                        $(that).find("input").val(0);
+                    }
+                });
+
+            }
+        });
+        $(function(){
+            $("#fiveStar").starComment();
+        })
+    </script>
+</body>
+</html>
