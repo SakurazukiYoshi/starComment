@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul{
+
+            margin-left: auto;
+        }
+        ul li{
+            width: 12px;
+            height: 24px;
+            float: left;
+            overflow: hidden;
+            list-style: none;
+        }
+         ul li .star-right{
+            margin-left: -12px
+        }
+         ul li img{
+            width: 24px;
+            height: 23px;
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+            user-select:none;
+        }
+    </style>
+</head>
+<body>
+
+<ul id="fiveStar">
+    <li><img src="images/hot@2x.png"></li>
+    <li><img src="images/hot@2x.png" class="star-right" ></li>
+    <li><img src="images/hot@2x.png"></li>
+    <li><img src="images/hot@2x.png" class="star-right" ></li>
+    <li><img src="images/hot@2x.png"></li>
+    <li><img src="images/hot@2x.png" class="star-right" ></li>
+    <li><img src="images/hot@2x.png"></li>
+    <li><img src="images/hot@2x.png" class="star-right" ></li>
+    <li><img src="images/hot@2x.png"></li>
+    <li><img src="images/hot@2x.png" class="star-right" ></li>
+    <input type="text" style="width: 20px;margin-left: 10px">
+</ul>
+
+
+<script src="jquery.min.js"></script>
+<script>
+    $.fn.extend({
+        starComment:function() {
+            var count=0;//记录点击次数
+            var that=this;
+            $(this).on("click","li",function(){
+                var srcHide="images/hot@2x.png";
+                var srcShow="images/hot_hl@2x.png";
+                if( 0==count){  //点击了一次
+                    count=1;
+                    $(this).find("img").attr("src",srcShow);   //修改自己的img图片
+                    $(this).prevAll().find("img").attr("src",srcShow);  //修改自己前面所有兄弟元素的图片
+                    $(this).nextAll().find("img").attr("src",srcHide);  //修改自己后面所有兄弟元素的图片
+                    $(that).find("input").val($(this).index()+1);
+                }else {   //点击了两次
+                    count=0;
+                    $(that).find("img").attr("src",srcHide);
+                    $(that).find("input").val(0);
+                }
+            });
+
+        }
+    });
+    $(function(){
+        $("#fiveStar").starComment();
+    })
+</script>
+</body>
+</html>
